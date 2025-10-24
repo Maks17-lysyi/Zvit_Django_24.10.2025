@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}Матчі{% endblock %}
+{% block description %}Перегляд найближчих та останніх футбольних матчів з прогнозами та аналітикою{% endblock %}
+{% block content %}
+  <h1 class="title">Матчі</h1>
+  <section class="card" style="margin-bottom:20px;" aria-labelledby="search-heading">
+    <h2 id="search-heading" class="sr-only">Пошук матчів</h2>
+    <form method="get" role="search" style="display:flex;gap:12px;align-items:center;">
+      <label for="search-input" class="sr-only">Пошук матчів</label>
+      <input 
+        type="text" 
+        id="search-input"
+        name="q" 
+        value="{{ q }}" 
+        placeholder="Пошук матчів" 
+        style="flex:1;" 
+        aria-describedby="search-help"
+      />
+      <button type="submit" aria-label="Виконати пошук матчів">Знайти</button>
+      <div id="search-help" class="sr-only">Введіть назву команди або ліги для пошуку матчів</div>
+    </form>
+  </section>
+
+  <div class="grid cols-2">
+    <section class="card" aria-labelledby="upcoming-heading">
+      <h2 id="upcoming-heading" class="section-title">Найближчі матчі</h2>
+      <ul class="list" role="list">
+        {% for m in upcoming %}
+        <li role="listitem">
+          <a href="{% url 'match_detail' m.id %}" aria-label="Перейти до деталей матчу {{ m.home_team }} проти {{ m.away_team }}">
+            {{ m.home_team }} vs {{ m.away_team }}
+          </a>
+          <div class="muted">{{ m.date_utc|date:"Y-m-d H:i" }} • {{ m.league.name }}</div>
+          {% if m.forecast %}
+          <div class="badges" role="group" aria-label="Прогноз матчу">
+            <span class="badge prob" aria-label="Ймовірність перемоги господарів: {{ m.forecast.prob_home|floatformat:2 }}">1 {{ m.forecast.prob_home|floatformat:2 }}</span>
+            <span class="badge prob" aria-label="Ймовірність нічиї: {{ m.forecast.prob_draw|floatformat:2 }}">X {{ m.forecast.prob_draw|floatformat:2 }}</span>
+            <span class="badge prob" aria-label="Ймовірність перемоги гостей: {{ m.forecast.prob_away|floatformat:2 }}">2 {{ m.forecast.prob_away|floatformat:2 }}</span>
+            {% if m.forecast.confidence == 'high' %}<span class="badge ok" aria-label="Високий рівень впевненості">Фаворит</span>{% endif %}
+          </div>
+          {% endif %}
+        </li>
+        {% empty %}
+        <li class="muted" role="listitem">Найближчих матчів немає</li>
+        {% endfor %}
+      </ul>
+    </section>
+    <section class="card" aria-labelledby="recent-heading">
+      <h2 id="recent-heading" class="section-title">Останні матчі</h2>
+      <ul class="list" role="list">
+        {% for m in recent %}
+        <li role="listitem">
+          <a href="{% url 'match_detail' m.id %}" aria-label="Перейти до деталей матчу {{ m.home_team }} проти {{ m.away_team }}">
+            {{ m.home_team }} vs {{ m.away_team }}
+          </a>
+          <div class="muted">{{ m.date_utc|date:"Y-m-d H:i" }} • {{ m.league.name }}</div>
+          {% if m.result %}
+          <div class="badges" role="group" aria-label="Результат матчу">
+            <span class="badge {% if m.result.home_goals > m.result.away_goals %}ok{% elif m.result.home_goals < m.result.away_goals %}bad{% else %}warn{% endif %}" 
+                  aria-label="Результат: {{ m.result.home_goals }} голів у господарів, {{ m.result.away_goals }} голів у гостей">
+              {{ m.result.home_goals }}:{{ m.result.away_goals }}
+            </span>
+          </div>
+          {% endif %}
+        </li>
+        {% empty %}
+        <li class="muted" role="listitem">Останніх матчів немає</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+
+  <div class="grid cols-2" style="margin-top:20px;">
+    <section class="card" aria-labelledby="transfers-heading">
+      <h2 id="transfers-heading" class="section-title">Трансфери</h2>
+      <ul class="list" role="list">
+        <li class="muted" role="listitem">Останні трансфери команд</li>
+        <li class="muted" role="listitem">Трансферні новини</li>
+        <li class="muted" role="listitem">Оцінки трансферів</li>
+        <li class="muted" role="listitem">Аналіз впливу на команди</li>
+      </ul>
+    </section>
+    <section class="card" aria-labelledby="interviews-heading">
+      <h2 id="interviews-heading" class="section-title">Інтерв'ю та аналітика</h2>
+      <ul class="list" role="list">
+        <li class="muted" role="listitem">Інтерв'ю з гравцями</li>
+        <li class="muted" role="listitem">Аналіз тренерів</li>
+        <li class="muted" role="listitem">Експертні коментарі</li>
+        <li class="muted" role="listitem">Тактичний аналіз</li>
+      </ul>
+    </section>
+  </div>
+{% endblock %}

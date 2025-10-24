@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}{{ league.name }}{% endblock %}
+{% block content %}
+    <div class="card" style="margin-bottom:20px;">
+      <h1 class="title" style="margin:0;">{{ league.name }}</h1>
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <div class="section-title">Турнірна таблиця</div>
+      <table>
+      <tr>
+        <th>Команда</th><th>І</th><th>О</th><th>В</th><th>Н</th><th>П</th><th>ГЗ</th><th>ГП</th>
+      </tr>
+      {% for s in standings %}
+      <tr>
+        <td><a href="{% url 'team_detail' s.team.id %}">{{ s.team.name }}</a></td>
+        <td>{{ s.played }}</td>
+        <td>{{ s.points }}</td>
+        <td>{{ s.won }}</td>
+        <td>{{ s.draw }}</td>
+        <td>{{ s.lost }}</td>
+        <td>{{ s.gf }}</td>
+        <td>{{ s.ga }}</td>
+      </tr>
+      {% endfor %}
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Матчі</div>
+      <ul class="list">
+        {% for m in matches %}
+        <li><a href="{% url 'match_detail' m.id %}">{{ m.date_utc|date:"Y-m-d" }}: {{ m.home_team }} vs {{ m.away_team }}</a></li>
+        {% empty %}
+        <li class="muted">Немає матчів</li>
+        {% endfor %}
+      </ul>
+    </div>
+{% endblock %}
+

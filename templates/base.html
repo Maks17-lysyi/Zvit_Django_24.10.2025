@@ -1,0 +1,40 @@
+{% load static %}
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{% block description %}FootyForecast - футбольні прогнози, новини та аналітика{% endblock %}" />
+    <title>{% block title %}FootyForecast{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Перейти до основного контенту</a>
+    <header class="topbar" role="banner">
+      <div class="topbar-inner">
+        <a class="brand" href="/" aria-label="FootyForecast - головна сторінка">FootyForecast</a>
+        <nav class="nav" role="navigation" aria-label="Головна навігація">
+          <a href="/news/" aria-label="Перейти до новин">Новини</a>
+          <a href="/matches/" aria-label="Перейти до матчів">Матчі</a>
+          <a href="/tables/" aria-label="Перейти до турнірних таблиць">Турнірні таблиці</a>
+          <a href="/analytics/" aria-label="Перейти до аналітики">Аналітика</a>
+          <a href="/contacts/" aria-label="Перейти до контактів">Контакти</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main-content" class="container" role="main">
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="footer" role="contentinfo">
+      <div class="container footer-inner">
+        <div class="muted">© {{ now|date:"Y" }} FootyForecast</div>
+        <div class="socials" role="complementary" aria-label="Соціальні мережі">
+          <a href="#" aria-label="Перейти до нашого Telegram каналу">Telegram</a>
+          <a href="#" aria-label="Перейти до нашого YouTube каналу">YouTube</a>
+          <a href="#" aria-label="Перейти до нашого Instagram профілю">Instagram</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+  </html>
+

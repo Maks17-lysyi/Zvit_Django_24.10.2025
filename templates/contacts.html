@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block title %}Контакти{% endblock %}
+{% block description %}Контактна інформація FootyForecast - зв'яжіться з нами{% endblock %}
+{% block content %}
+  <div class="card" style="margin-bottom:20px;">
+    <h1 class="title" style="margin:0;">Контакти</h1>
+  </div>
+
+  <div class="grid cols-2">
+    <!-- Контактна інформація -->
+    <div class="card">
+      <div class="section-title">📧 Зв'яжіться з нами</div>
+      <div style="line-height:2;">
+        <p style="color:var(--muted);margin-bottom:24px;">
+          Маєте питання, пропозиції або хочете співпрацювати? Ми завжди раді почути від вас!
+        </p>
+        
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="badge" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--accent);">
+              📧
+            </div>
+            <div>
+              <div style="font-weight:600;margin-bottom:4px;">Email</div>
+              <a href="mailto:info@footyforecast.com" style="color:var(--accent);">info@footyforecast.com</a>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="badge" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--accent);">
+              📱
+            </div>
+            <div>
+              <div style="font-weight:600;margin-bottom:4px;">Telegram</div>
+              <a href="https://t.me/footyforecast" style="color:var(--accent);">@footyforecast</a>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="badge" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--accent);">
+              🌐
+            </div>
+            <div>
+              <div style="font-weight:600;margin-bottom:4px;">Соціальні мережі</div>
+              <div style="display:flex;gap:12px;margin-top:8px;">
+                <a href="#" class="badge" style="background:rgba(6, 182, 212, 0.1);">Instagram</a>
+                <a href="#" class="badge" style="background:rgba(6, 182, 212, 0.1);">YouTube</a>
+                <a href="#" class="badge" style="background:rgba(6, 182, 212, 0.1);">Twitter</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Форма зворотного зв'язку -->
+    <div class="card">
+      <div class="section-title">✉️ Напишіть нам</div>
+      <form style="display:flex;flex-direction:column;gap:16px;">
+        <div>
+          <label for="name" style="display:block;margin-bottom:8px;font-weight:600;">Ім'я</label>
+          <input type="text" id="name" name="name" placeholder="Ваше ім'я" style="width:100%;" required />
+        </div>
+        
+        <div>
+          <label for="email" style="display:block;margin-bottom:8px;font-weight:600;">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" style="width:100%;" required />
+        </div>
+        
+        <div>
+          <label for="subject" style="display:block;margin-bottom:8px;font-weight:600;">Тема</label>
+          <input type="text" id="subject" name="subject" placeholder="Про що ви хочете написати?" style="width:100%;" required />
+        </div>
+        
+        <div>
+          <label for="message" style="display:block;margin-bottom:8px;font-weight:600;">Повідомлення</label>
+          <textarea 
+            id="message" 
+            name="message" 
+            placeholder="Ваше повідомлення..." 
+            rows="6" 
+            style="width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255, 255, 255, 0.05);color:var(--text);font-family:inherit;font-size:14px;resize:vertical;"
+            required
+          ></textarea>
+        </div>
+        
+        <button type="submit" style="width:100%;">Відправити повідомлення</button>
+        
+        <div class="muted" style="font-size:13px;text-align:center;">
+          * Форма зворотного зв'язку буде активована найближчим часом
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Додаткова інформація -->
+  <div class="card" style="margin-top:20px;">
+    <div class="section-title">ℹ️ Про FootyForecast</div>
+    <div style="line-height:1.8;color:var(--muted);">
+      <p style="margin-bottom:16px;">
+        <strong style="color:var(--text);">FootyForecast</strong> - це сучасна платформа для аналізу та прогнозування футбольних матчів. 
+        Ми використовуємо передові технології машинного навчання та великі дані для надання найточніших прогнозів.
+      </p>
+      <p style="margin-bottom:16px;">
+        Наша місія - зробити футбольну аналітику доступною для всіх фанатів футболу, надаючи детальну статистику, 
+        прогнози та інсайти про улюблені команди та гравців.
+      </p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;">
+        <div class="badge ok">Заснована у 2024</div>
+        <div class="badge ok">1000+ матчів щомісяця</div>
+        <div class="badge ok">50+ ліг світу</div>
+        <div class="badge ok">Точність прогнозів 75%+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Адреса офісу (якщо є) -->
+  <div class="grid cols-2" style="margin-top:20px;">
+    <div class="card">
+      <div class="section-title">🏢 Офіс</div>
+      <p style="color:var(--muted);line-height:1.8;">
+        <strong style="color:var(--text);display:block;margin-bottom:8px;">FootyForecast HQ</strong>
+        вул. Спортивна, 10<br>
+        Київ, 01001<br>
+        Україна
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="section-title">🕐 Робочі години</div>
+      <p style="color:var(--muted);line-height:1.8;">
+        <strong style="color:var(--text);display:block;margin-bottom:8px;">Підтримка працює:</strong>
+        Понеділок - П'ятниця: 9:00 - 18:00<br>
+        Субота: 10:00 - 16:00<br>
+        Неділя: Вихідний
+      </p>
+    </div>
+  </div>
+{% endblock %}
+

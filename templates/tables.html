@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Турнірні таблиці{% endblock %}
+{% block description %}Перегляд турнірних таблиць всіх активних футбольних ліг{% endblock %}
+{% block content %}
+  <div class="card" style="margin-bottom:20px;">
+    <h1 class="title" style="margin:0;">Турнірні таблиці</h1>
+  </div>
+
+  <div class="card" style="margin-bottom:20px;">
+    <form method="get" style="display:flex;gap:12px;align-items:center;">
+      <input type="text" name="q" value="{{ q }}" placeholder="Пошук ліги або країни" style="flex:1;" />
+      <button type="submit">Знайти</button>
+    </form>
+  </div>
+
+  {% for data in tables_data %}
+  <div class="card" style="margin-bottom:20px;">
+    <div class="section-title">
+      <a href="{% url 'league_detail' data.league.id %}" style="color:var(--text);">
+        {{ data.league.name }}
+      </a>
+      <span class="muted" style="font-size:14px;font-weight:400;margin-left:8px;">{{ data.league.country }}</span>
+    </div>
+    
+    <table>
+      <thead>
+        <tr>
+          <th style="width:50px;">Поз</th>
+          <th>Команда</th>
+          <th style="width:50px;">І</th>
+          <th style="width:50px;">О</th>
+          <th style="width:50px;">В</th>
+          <th style="width:50px;">Н</th>
+          <th style="width:50px;">П</th>
+          <th style="width:50px;">ГЗ</th>
+          <th style="width:50px;">ГП</th>
+          <th style="width:50px;">+/-</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for standing in data.standings %}
+        <tr>
+          <td style="font-weight:700;">{{ forloop.counter }}</td>
+          <td>
+            <a href="{% url 'team_detail' standing.team.id %}" style="color:var(--text);">
+              {{ standing.team.name }}
+            </a>
+          </td>
+          <td>{{ standing.played }}</td>
+          <td style="font-weight:700;color:var(--accent);">{{ standing.points }}</td>
+          <td style="color:var(--ok);">{{ standing.won }}</td>
+          <td style="color:var(--warn);">{{ standing.draw }}</td>
+          <td style="color:var(--bad);">{{ standing.lost }}</td>
+          <td>{{ standing.gf }}</td>
+          <td>{{ standing.ga }}</td>
+          <td {% if standing.gd > 0 %}style="color:var(--ok);font-weight:700;"{% elif standing.gd < 0 %}style="color:var(--bad);"{% endif %}>
+            {% if standing.gd > 0 %}+{% endif %}{{ standing.gd }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% empty %}
+  <div class="card">
+    <div class="muted">Немає даних про турнірні таблиці</div>
+  </div>
+  {% endfor %}
+{% endblock %}
+

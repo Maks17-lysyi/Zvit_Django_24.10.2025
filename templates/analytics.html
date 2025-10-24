@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block title %}Аналітика{% endblock %}
+{% block description %}Статистика, аналітика та прогнози футбольних матчів{% endblock %}
+{% block content %}
+  <div class="card" style="margin-bottom:20px;">
+    <h1 class="title" style="margin:0;">Аналітика та статистика</h1>
+  </div>
+
+  <div class="grid cols-2">
+    <!-- Топ команди -->
+    <div class="card">
+      <div class="section-title">🏆 Топ команди за очками</div>
+      <ul class="list">
+        {% for standing in top_teams %}
+        <li>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <a href="{% url 'team_detail' standing.team.id %}" style="font-weight:600;">
+                {{ forloop.counter }}. {{ standing.team.name }}
+              </a>
+              <div class="muted">{{ standing.league.name }}</div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <span class="badge prob" style="background:var(--ok);">{{ standing.points }} очок</span>
+              <span class="muted">{{ standing.won }}-{{ standing.draw }}-{{ standing.lost }}</span>
+            </div>
+          </div>
+        </li>
+        {% empty %}
+        <li class="muted">Немає даних</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Статистика ліг -->
+    <div class="card">
+      <div class="section-title">📊 Статистика ліг</div>
+      <ul class="list">
+        {% for stat in leagues_stats %}
+        <li>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <a href="{% url 'league_detail' stat.league.id %}" style="font-weight:600;">
+                {{ stat.league.name }}
+              </a>
+              <div class="muted">{{ stat.league.country }}</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <span class="badge">{{ stat.teams }} команд</span>
+              <span class="badge">{{ stat.matches }} матчів</span>
+            </div>
+          </div>
+        </li>
+        {% empty %}
+        <li class="muted">Немає даних</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- Найближчі матчі з прогнозами -->
+  <div class="card" style="margin-top:20px;">
+    <div class="section-title">⚽ Найближчі матчі з прогнозами</div>
+    <ul class="list">
+      {% for match in upcoming_matches %}
+      <li>
+        <a href="{% url 'match_detail' match.id %}">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+            <div>
+              <div style="font-weight:600;font-size:16px;margin-bottom:4px;">
+                {{ match.home_team.name }} vs {{ match.away_team.name }}
+              </div>
+              <div class="muted">{{ match.date_utc|date:"Y-m-d H:i" }} • {{ match.league.name }}</div>
+            </div>
+            {% if match.forecast %}
+            <div class="badges" style="margin:0;">
+              <span class="badge prob">1: {{ match.forecast.prob_home|floatformat:2 }}</span>
+              <span class="badge prob">X: {{ match.forecast.prob_draw|floatformat:2 }}</span>
+              <span class="badge prob">2: {{ match.forecast.prob_away|floatformat:2 }}</span>
+              {% if match.forecast.confidence == 'high' %}
+              <span class="badge ok">Висока впевненість</span>
+              {% elif match.forecast.confidence == 'medium' %}
+              <span class="badge warn">Середня впевненість</span>
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+        </a>
+      </li>
+      {% empty %}
+      <li class="muted">Немає матчів з прогнозами</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Інформаційний блок -->
+  <div class="card" style="margin-top:20px;background:linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%);">
+    <div class="section-title">ℹ️ Про нашу аналітику</div>
+    <p style="color:var(--muted);line-height:1.8;margin-bottom:16px;">
+      Наша система аналізує тисячі футбольних матчів, використовуючи машинне навчання та статистичні моделі для надання найточніших прогнозів. 
+      Ми враховуємо форму команд, історію зустрічей, травми гравців та багато інших факторів.
+    </p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <div class="badge ok">✓ Точні прогнози</div>
+      <div class="badge ok">✓ Детальна статистика</div>
+      <div class="badge ok">✓ Реал-тайм оновлення</div>
+      <div class="badge ok">✓ Експертна аналітика</div>
+    </div>
+  </div>
+{% endblock %}
+
