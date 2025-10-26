@@ -27,6 +27,7 @@
       <span class="badge bad">Низька</span>
       {% endif %}
     </div>
+    {% if match.forecast.explain %}
     <div>
       <div class="section-title">Чому</div>
       <ul class="list">
@@ -35,6 +36,7 @@
         {% endfor %}
       </ul>
     </div>
+    {% endif %}
     <div class="muted">Останній перерахунок: {{ match.forecast.recalculated_at|date:"Y-m-d H:i" }}</div>
     <div class="muted">Дисклеймер: інформаційні цілі, не є порадою для ставок.</div>
   </div>
@@ -82,19 +84,19 @@
     <div class="card">
       <div class="section-title">Трансфери</div>
       <ul class="list">
-        <li class="muted">Останні трансфери команд</li>
-        <li class="muted">Трансферні новини</li>
-        <li class="muted">Оцінки трансферів</li>
-        <li class="muted">Аналіз впливу на команди</li>
+        <li><a href="{% url 'news_by_tag' 'Трансфери' %}">Останні трансфери команд</a></li>
+        <li><a href="{% url 'news_by_tag' 'Трансферні новини' %}">Трансферні новини</a></li>
+        <li><a href="{% url 'news_by_tag' 'Оцінки трансферів' %}">Оцінки трансферів</a></li>
+        <li><a href="{% url 'news_by_tag' 'Аналіз впливу на команди' %}">Аналіз впливу на команди</a></li>
       </ul>
     </div>
     <div class="card">
       <div class="section-title">Інтерв'ю та аналітика</div>
       <ul class="list">
-        <li class="muted">Інтерв'ю з гравцями</li>
-        <li class="muted">Аналіз тренерів</li>
-        <li class="muted">Експертні коментарі</li>
-        <li class="muted">Тактичний аналіз</li>
+        <li><a href="{% url 'news_by_tag' "Інтерв'ю" %}">Інтерв'ю з гравцями</a></li>
+        <li><a href="{% url 'news_by_tag' 'Аналітика' %}">Аналіз тренерів</a></li>
+        <li><a href="{% url 'news_by_tag' 'Експертні коментарі' %}">Експертні коментарі</a></li>
+        <li><a href="{% url 'news_by_tag' 'Тактичний аналіз' %}">Тактичний аналіз</a></li>
       </ul>
     </div>
   </div>

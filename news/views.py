@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
-from .models import News
+from .models import News, Tag
 
 
 def news_list(request):
@@ -14,3 +14,10 @@ def news_list(request):
 def news_detail(request, slug: str):
 	item = get_object_or_404(News, slug=slug)
 	return render(request, 'news_detail.html', {'item': item})
+
+
+def news_by_tag(request, tag_name: str):
+	"""Показує новини за тегом"""
+	tag = get_object_or_404(Tag, name=tag_name)
+	news = News.objects.filter(tags=tag)
+	return render(request, 'news_by_tag.html', {'news': news, 'tag': tag})

@@ -1,17 +1,11 @@
 {% extends 'base.html' %}
-{% block title %}Новини{% endblock %}
+{% block title %}{{ tag.name }} - Новини{% endblock %}
 {% block content %}
   <div class="card" style="margin-bottom:20px;">
-    <h1 class="title" style="margin:0;">Новини</h1>
+    <h1 class="title" style="margin:0;">{{ tag.name }}</h1>
   </div>
   
-  <div class="card" style="margin-bottom:20px;">
-    <form method="get" style="display:flex;gap:12px;align-items:center;">
-      <input type="text" name="q" value="{{ q }}" placeholder="Пошук новин" style="flex:1;" />
-      <button type="submit">Знайти</button>
-    </form>
-  </div>
-  
+  {% if news %}
   <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
     {% for n in news %}
     <a href="{% url 'news_detail' n.slug %}" class="card" style="display:block;padding:0;overflow:hidden;text-decoration:none;">
@@ -24,11 +18,12 @@
         <p style="color:var(--muted);margin:0;">{{ n.summary }}</p>
       </div>
     </a>
-    {% empty %}
-    <div class="card">
-      <div class="muted">Немає новин</div>
-    </div>
     {% endfor %}
   </div>
+  {% else %}
+  <div class="card">
+    <div class="muted">Немає новин з тегом "{{ tag.name }}"</div>
+  </div>
+  {% endif %}
 {% endblock %}
 

@@ -3,28 +3,22 @@
 {% block content %}
   <div class="card" style="margin-bottom:20px;">
     <h1 class="title" style="margin:0;">{{ team.name }}</h1>
+    <p class="muted">Ліга: {{ team.league.name }}</p>
   </div>
-  <div class="grid cols-2">
-    <div class="card">
-      <div class="section-title">Останні матчі (домашні)</div>
-      <ul class="list">
-        {% for m in recent_home %}
-        <li><a href="{% url 'match_detail' m.id %}">{{ m.date_utc|date:"Y-m-d" }}: {{ m.home_team }} vs {{ m.away_team }}</a></li>
-        {% empty %}
-        <li class="muted">Немає даних</li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div class="card">
-      <div class="section-title">Останні матчі (виїзні)</div>
-      <ul class="list">
-        {% for m in recent_away %}
-        <li><a href="{% url 'match_detail' m.id %}">{{ m.date_utc|date:"Y-m-d" }}: {{ m.home_team }} vs {{ m.away_team }}</a></li>
-        {% empty %}
-        <li class="muted">Немає даних</li>
-        {% endfor %}
-      </ul>
-    </div>
+  <div class="card">
+    <div class="section-title">Останні матчі</div>
+    <ul class="list">
+      {% for m in matches %}
+      <li>
+        <a href="{% url 'match_detail' m.id %}">
+          {{ m.date_utc|date:"Y-m-d H:i" }}: {{ m.home_team }} vs {{ m.away_team }}
+        </a>
+        <div class="muted">{{ m.league.name }}</div>
+      </li>
+      {% empty %}
+      <li class="muted">Немає даних</li>
+      {% endfor %}
+    </ul>
   </div>
 {% endblock %}
 

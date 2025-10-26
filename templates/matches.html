@@ -74,19 +74,19 @@
     <section class="card" aria-labelledby="transfers-heading">
       <h2 id="transfers-heading" class="section-title">Трансфери</h2>
       <ul class="list" role="list">
-        <li class="muted" role="listitem">Останні трансфери команд</li>
-        <li class="muted" role="listitem">Трансферні новини</li>
-        <li class="muted" role="listitem">Оцінки трансферів</li>
-        <li class="muted" role="listitem">Аналіз впливу на команди</li>
+        <li role="listitem"><a href="{% url 'news_by_tag' 'Трансфери' %}">Останні трансфери команд</a></li>
+        <li role="listitem"><a href="{% url 'news_by_tag' 'Трансферні новини' %}">Трансферні новини</a></li>
+        <li role="listitem"><a href="{% url 'news_by_tag' 'Оцінки трансферів' %}">Оцінки трансферів</a></li>
+        <li role="listitem"><a href="{% url 'news_by_tag' 'Аналіз впливу на команди' %}">Аналіз впливу на команди</a></li>
       </ul>
     </section>
     <section class="card" aria-labelledby="interviews-heading">
       <h2 id="interviews-heading" class="section-title">Інтерв'ю та аналітика</h2>
       <ul class="list" role="list">
-        <li class="muted" role="listitem">Інтерв'ю з гравцями</li>
-        <li class="muted" role="listitem">Аналіз тренерів</li>
-        <li class="muted" role="listitem">Експертні коментарі</li>
-        <li class="muted" role="listitem">Тактичний аналіз</li>
+        <li role="listitem"><a href="{% url 'news_by_tag' "Інтерв'ю" %}">Інтерв'ю з гравцями</a></li>
+        <li role="listitem"><a href="{% url 'news_by_tag' 'Аналітика' %}">Аналіз тренерів</a></li>
+        <li role="listitem"><a href="{% url 'news_by_tag' 'Експертні коментарі' %}">Експертні коментарі</a></li>
+        <li role="listitem"><a href="{% url 'news_by_tag' 'Тактичний аналіз' %}">Тактичний аналіз</a></li>
       </ul>
     </section>
   </div>

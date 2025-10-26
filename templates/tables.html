@@ -13,7 +13,7 @@
     </form>
   </div>
 
-  {% for data in tables_data %}
+  {% for data in tables %}
   <div class="card" style="margin-bottom:20px;">
     <div class="section-title">
       <a href="{% url 'league_detail' data.league.id %}" style="color:var(--text);">
